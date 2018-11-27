@@ -21,20 +21,22 @@ let world = {lifeExistance : [[1,0,1],[1,0,1], [1,0,1]],
     return 0;
   },
     2 : function(latitude, longitude){
-      return this.lifeExistance[latitude][longitude];
+      return world.lifeExistance[latitude][longitude];
     },
     3 : function() { 
       return 1;
-    },
-    4: function() { 
-      return 0;
     }
   },
   calculateNextState : function(latitude, longitude) { 
     let aliveNeighbours = this.calculateAliveNeighbours(latitude, longitude);
+    if(aliveNeighbours > 3) {
+      return 0;
+    }
+
     let nextState = this.lifeZones[aliveNeighbours](latitude,longitude);
     return nextState;
-  }
+  },
+
 }
 
 exports.world = world;
