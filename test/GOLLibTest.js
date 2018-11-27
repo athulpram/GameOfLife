@@ -30,3 +30,11 @@ describe('calculate next state', function() {
     deepEqual(world.calculateNextState(1,0), 1);
   });
 });
+
+describe('run world', function() {
+  it('should return the modified grid when iteration is provided', function() {
+    deepEqual(world.runWorld(1),[[0,0,0],[1,1,1],[0,0,0]]);
+    world.grid = [[0,1,0],[0,1,0],[0,1,0]];
+    deepEqual(world.runWorld(2),[[0,1,0],[0,1,0],[0,1,0]]);
+  });
+});

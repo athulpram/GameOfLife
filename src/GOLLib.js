@@ -1,7 +1,9 @@
 const {checkNeighbourState} = require("./utilLib.js");
 
 let world = {grid : [[0,1,0,1,0],[0,1,0,0,1],[0,1,0,1,1],[1,0,1,1,1],[1,0,0,1,0]],
-  worldSize : 5,
+  calculateWorldSize: function() { 
+    return this.grid.length
+  }, 
   fetchNeighboursState : function(latitude, longitude){
     let grid = this.grid;
     return [
@@ -13,7 +15,7 @@ let world = {grid : [[0,1,0,1,0],[0,1,0,0,1],[0,1,0,1,1],[1,0,1,1,1],[1,0,0,1,0]
       checkNeighbourState(latitude +1,longitude -1, grid),
       checkNeighbourState(latitude +1,longitude, grid),
       checkNeighbourState(latitude +1,longitude +1 ,grid)];
-    },
+  },
   calculateAliveNeighbours : function(latitude,longitude){
     let neighbourStates = this.fetchNeighboursState(latitude,longitude);
     return neighbourStates.reduce((state1,state2)=>state1+state2);
@@ -23,8 +25,8 @@ let world = {grid : [[0,1,0,1,0],[0,1,0,0,1],[0,1,0,1,1],[1,0,1,1,1],[1,0,0,1,0]
     return 0;
   },
     1: function() { 
-    return 0;
-  },
+      return 0;
+    },
     2 : function(latitude, longitude){
       return world.grid[latitude][longitude];
     },
@@ -43,16 +45,17 @@ let world = {grid : [[0,1,0,1,0],[0,1,0,0,1],[0,1,0,1,1],[1,0,1,1,1],[1,0,0,1,0]
 
   changeLifeZone : function() {
     let nextGeneration = [];
+    let worldSize = this.calculateWorldSize();
     nextGeneration = this.grid.map((value)=>value.slice());
-    
-    for(let latitude=0;latitude<this.worldSize;latitude++){
-      for(let longitude=0;longitude<this.worldSize;longitude++){
-       nextGeneration[latitude][longitude]=this.calculateNextState(latitude,longitude); 
+
+    for(let latitude=0; latitude < worldSize; latitude++){
+      for(let longitude=0; longitude < worldSize; longitude++){
+        nextGeneration[latitude][longitude] = this.calculateNextState(latitude, longitude); 
       }
     }
     this.grid=nextGeneration;
   },
- 
+
   runWorld : function(iteration) { 
     while(iteration != 0){
       this.changeLifeZone();
