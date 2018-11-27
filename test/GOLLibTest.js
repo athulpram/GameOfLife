@@ -23,3 +23,8 @@ describe('calculate Alive Neighbours',function() {
   });
 });
 
+describe('calculate next state', function() {
+  it('should change the zone as per the number of alive neighbours', function() {
+    deepEqual(world.calculateNextState(0,1), 0);
+  });
+});

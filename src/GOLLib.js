@@ -30,7 +30,11 @@ let world = {lifeExistance : [[1,0,1],[1,0,1], [1,0,1]],
       return 0;
     }
   },
-
+  calculateNextState : function(latitude, longitude) { 
+    let aliveNeighbours = this.calculateAliveNeighbours(latitude, longitude);
+    let nextState = this.lifeZones[aliveNeighbours](latitude,longitude);
+    return nextState;
+  }
 }
 
 exports.world = world;
