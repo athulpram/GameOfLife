@@ -13,10 +13,23 @@ let world = {lifeExistance : [[1,0,1],[1,0,1], [1,0,1]],
       checkNeighbourState(latitude +1,longitude, lifeExistance),
       checkNeighbourState(latitude +1,longitude +1 ,lifeExistance)];
     },
-  determineNextState : function(latitude,longitude){
+  calculateAliveNeighbours : function(latitude,longitude){
     let neighbourStates = this.fetchNeighboursState(latitude,longitude);
     return neighbourStates.reduce((state1,state2)=>state1+state2);
-  }
+  },
+  lifeZones : {1: function() { 
+    return 0;
+  },
+    2 : function(latitude, longitude){
+      return this.lifeExistance[latitude][longitude];
+    },
+    3 : function() { 
+      return 1;
+    },
+    4: function() { 
+      return 0;
+    }
+  },
 
 }
 
