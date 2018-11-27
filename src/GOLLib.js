@@ -18,6 +18,7 @@ let world = {grid : [[0,1,0,1,0],[0,1,0,0,1],[0,1,0,1,1],[1,0,1,1,1],[1,0,0,1,0]
     let neighbourStates = this.fetchNeighboursState(latitude,longitude);
     return neighbourStates.reduce((state1,state2)=>state1+state2);
   },
+
   lifeZones : {0 : function() {
     return 0;
   },
@@ -49,9 +50,16 @@ let world = {grid : [[0,1,0,1,0],[0,1,0,0,1],[0,1,0,1,1],[1,0,1,1,1],[1,0,0,1,0]
        nextGeneration[latitude][longitude]=this.calculateNextState(latitude,longitude); 
       }
     }
-    this.world=nextGeneration;
+    this.grid=nextGeneration;
+  },
+ 
+  runWorld : function(iteration) { 
+    while(iteration != 0){
+      this.changeLifeZone();
+      iteration--;
+    }
+    return this.grid;
   }
 }
 
 exports.world = world;
-
