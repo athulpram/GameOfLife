@@ -2,7 +2,7 @@ const {world} = require("../src/GOLLib.js");
 const {deepEqual} = require('assert');
 
 describe('Neighbour states',function(){
-  world.lifeExistance = [[0,1,0],[0,1,0],[0,1,0]];
+  world.grid = [[0,1,0],[0,1,0],[0,1,0]];
   it("should return an array filled with zero when all neighbours are valid",function(){
     deepEqual(world.fetchNeighboursState(1,1),[0,1,0,0,0,0,1,0]);   
   });

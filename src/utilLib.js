@@ -1,8 +1,8 @@
-const checkNeighbourState = function(latitude,longitude,lifeExistance){
-  if(Math.max(latitude,longitude)>2 || Math.min(latitude,longitude)<0){
+const checkNeighbourState = function(latitude,longitude,grid){
+  if(Math.max(latitude,longitude)>grid.length -1 || Math.min(latitude,longitude)<0){
     return 0;
   }
-  return lifeExistance[latitude][longitude];
+  return grid[latitude][longitude];
 }
 
 exports.checkNeighbourState = checkNeighbourState;
