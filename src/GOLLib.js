@@ -5,10 +5,18 @@ let world = { generateGrid : function(size) {
   let grid = rows.map((x) => new Array(size).fill(0));
   return grid;
   },
+
+  placeCellNumbers : function(size) {
+    let grid = this.generateGrid(size);
+    let counter = 1;
+    return grid.map((rows)=>rows.map((col) => counter++));
+  },
+
   grid : [[0,1,0,1,0],[0,1,0,0,1],[0,1,0,1,1],[1,0,1,1,1],[1,0,0,1,0]],
   calculateWorldSize: function() { 
     return this.grid.length
   }, 
+
   fetchNeighboursState : function(latitude, longitude){
     let grid = this.grid;
     return [
@@ -21,6 +29,7 @@ let world = { generateGrid : function(size) {
       checkNeighbourState(latitude +1,longitude, grid),
       checkNeighbourState(latitude +1,longitude +1 ,grid)];
   },
+
   calculateAliveNeighbours : function(latitude,longitude){
     let neighbourStates = this.fetchNeighboursState(latitude,longitude);
     return neighbourStates.reduce((state1,state2)=>state1+state2);
@@ -39,6 +48,7 @@ let world = { generateGrid : function(size) {
       return 1;
     }
   },
+
   calculateNextState : function(latitude, longitude) { 
     let aliveNeighbours = this.calculateAliveNeighbours(latitude, longitude);
     if(aliveNeighbours > 3) {
