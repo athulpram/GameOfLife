@@ -1,10 +1,8 @@
-const {checkNeighbourState} = require("./utilLib.js");
-
 let world = { generateGrid : function(size) {
   let rows = new Array(size).fill(0);
   let grid = rows.map((x) => new Array(size).fill(0));
   return grid;
-  },
+},
 
   placeCellNumbers : function(size) {
     let grid = this.generateGrid(size);
@@ -21,14 +19,21 @@ let world = { generateGrid : function(size) {
   fetchNeighboursState : function(row, column){
     let grid = this.grid;
     return [
-      checkNeighbourState(row -1,column -1,grid),
-      checkNeighbourState(row -1,column, grid),
-      checkNeighbourState(row -1,column +1, grid),
-      checkNeighbourState(row ,column -1, grid),
-      checkNeighbourState(row ,column +1, grid),
-      checkNeighbourState(row +1,column -1, grid),
-      checkNeighbourState(row +1,column, grid),
-      checkNeighbourState(row +1,column +1 ,grid)];
+      this.provideNeighbourState(row -1,column -1,grid),
+      this.provideNeighbourState(row -1,column, grid),
+      this.provideNeighbourState(row -1,column +1, grid),
+      this.provideNeighbourState(row ,column -1, grid),
+      this.provideNeighbourState(row ,column +1, grid),
+      this.provideNeighbourState(row +1,column -1, grid),
+      this.provideNeighbourState(row +1,column, grid),
+      this.provideNeighbourState(row +1,column +1 ,grid)];
+  },
+
+  provideNeighbourState : function(row,column,grid){
+    if(Math.max(row,column)>grid.length -1 || Math.min(row,column)<0){
+      return 0;
+    }
+    return grid[row][column];
   },
 
   calculateAliveNeighbours : function(row,column){

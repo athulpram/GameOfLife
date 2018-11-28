@@ -65,3 +65,9 @@ describe("update world",function(){
     deepEqual(world.updateWorld([1],3),[[1,0,0],[0,0,0],[0,0,0]]);
   });
 });
+
+describe('provideNeighbourState',function(){
+  it('Should return 0 when neighbour is not valid',function(){
+    deepEqual(world.provideNeighbourState(0,-1,[[1,1,1],[0,1,1],[1,0,1]]),0);
+  });
+});
