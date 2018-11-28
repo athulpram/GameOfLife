@@ -16,24 +16,29 @@ let world = { generateGrid : function(size) {
     return this.grid.length
   }, 
 
-  fetchNeighboursState : function(row, column){
+  fetchNeighbours : function(row, column){
     let grid = this.grid;
-    return [
-      this.provideNeighbourState(row -1,column -1,grid),
-      this.provideNeighbourState(row -1,column, grid),
-      this.provideNeighbourState(row -1,column +1, grid),
-      this.provideNeighbourState(row ,column -1, grid),
-      this.provideNeighbourState(row ,column +1, grid),
-      this.provideNeighbourState(row +1,column -1, grid),
-      this.provideNeighbourState(row +1,column, grid),
-      this.provideNeighbourState(row +1,column +1 ,grid)];
+    let points = [-1, 0, 1];
+    let neighbour=[];
+
+    points.forEach((x)=> {
+      points.forEach((y) =>{
+        neighbour.push([row+x, column+y]);
+      });
+    });
+
+    return neighbour.filter((x)=>{ return !(x[0] ==row && x[1] == column)});
   },
 
-  provideNeighbourState : function(row,column,grid){
-    if(Math.max(row,column)>grid.length -1 || Math.min(row,column)<0){
+  fetchNeighboursState : function(row,column) {
+    return this.fetchNeighbours(row,column).map((x)=> this.provideNeighbourState( x[0],x[1])).map((x)=> 0+x);
+  },
+
+  provideNeighbourState : function(row,column){
+    if(Math.max(row,column)>this.grid.length -1 || Math.min(row,column)<0){
       return 0;
     }
-    return grid[row][column];
+    return this.grid[row][column];
   },
 
   calculateAliveNeighbours : function(row,column){
@@ -89,8 +94,8 @@ let world = { generateGrid : function(size) {
     let grid = this.generateGrid(size);
     let gridSize = this.calculateWorldSize();
     for(cell of aliveCells){
-      let row = (cell-1) % size;
-      let col = Math.floor((cell-1)/size);
+      let row = Math.floor((cell-1)/size);
+      let col = (cell-1) % size;
       grid[row][col] = 1;
     }
     this.grid = grid;
