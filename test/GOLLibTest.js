@@ -55,8 +55,8 @@ describe("generateGrid", function() {
 
 describe("placeCellNumbers", function() {
   it("should return a 2D array with the cell positions as values", function() {
-    deepEqual(world.placeCellNumbers(3), [[1,2,3],[4,5,6],[7,8,9]]);
-    deepEqual(world.placeCellNumbers(4), [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]]);
+    deepEqual(world.createLabelledGrid(3), [[1,2,3],[4,5,6],[7,8,9]]);
+    deepEqual(world.createLabelledGrid(4), [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]]);
   });
 });
 

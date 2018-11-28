@@ -2,19 +2,18 @@ let world = { generateGrid : function(size) {
   let rows = new Array(size).fill(0);
   let grid = rows.map((x) => new Array(size).fill(0));
   return grid;
-},
+}, 
+  grid : [], 
 
-  placeCellNumbers : function(size) {
+  calculateGridSize: function() { 
+    return this.grid.length
+  }, 
+
+  createLabelledGrid : function(size) {
     let grid = this.generateGrid(size);
     let counter = 1;
     return grid.map((rows)=>rows.map((col) => counter++));
   },
-
-  grid : [], 
-
-  calculateWorldSize: function() { 
-    return this.grid.length
-  }, 
 
   fetchNeighbours : function(row, column){
     let grid = this.grid;
@@ -71,7 +70,7 @@ let world = { generateGrid : function(size) {
 
   changeLifeZone : function() {
     let nextGeneration = [];
-    let worldSize = this.calculateWorldSize();
+    let worldSize = this.calculateGridSize();
     nextGeneration = this.grid.map((value)=>value.slice());
 
     for(let row=0; row < worldSize; row++){
@@ -92,7 +91,7 @@ let world = { generateGrid : function(size) {
 
   updateWorld : function(aliveCells,size){
     let grid = this.generateGrid(size);
-    let gridSize = this.calculateWorldSize();
+    let gridSize = this.calculateGridSize();
     for(cell of aliveCells){
       let row = Math.floor((cell-1)/size);
       let col = (cell-1) % size;
