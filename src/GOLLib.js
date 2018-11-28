@@ -95,11 +95,7 @@ let world = { generateGrid : function({length, breadth}) {
   updateWorld : function(aliveCells){
     let grid = this.grid;
     let {length, breadth} = this.calculateGridSize();
-    for(cell of aliveCells){
-      let row = Math.floor((cell-1)/breadth);
-      let col = (cell-1) % length;
-      grid[row][col] = 1;
-    }
+    aliveCells.map((cell) => grid[cell[0]][cell[1]] = 1);
     this.grid = grid;
     return grid;
   }

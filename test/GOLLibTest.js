@@ -73,7 +73,7 @@ describe("createLabelledGrid", function() {
 describe("update world",function(){
   it("should return a 2D array with values 1 at provided cell numbers",function(){
     world.generateGrid({length : 3, breadth: 3});
-    deepEqual(world.updateWorld([1]),[[1,0,0],[0,0,0],[0,0,0]]);
+    deepEqual(world.updateWorld([[0,0]]),[[1,0,0],[0,0,0],[0,0,0]]);
   });
 });
 
