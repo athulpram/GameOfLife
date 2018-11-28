@@ -40,7 +40,15 @@ describe('run world', function() {
 });
 
 describe("generateGrid", function() {
-  it("should return a 2D array of length equal to the size of world", function() {
+  it("should return a 2D array of length 3 when world size is equal to 3", function() {
     deepEqual(world.generateGrid(3), [[0,0,0],[0,0,0],[0,0,0]]);
+  });
+
+  it("should return a 2D array of length 5 when world size is equal to 5", function() {
+    deepEqual(world.generateGrid(5), [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]);
+  });
+
+  it("should return an array of length 0 when world size is equal to 0", function() {
+    deepEqual(world.generateGrid(0), []);
   });
 });
