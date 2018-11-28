@@ -2,8 +2,9 @@ const {world} = require('./src/GOLLib.js');
 const readline = require('readline-sync');
 
 const main = function() {
-  let size = readline.question('enter world size : ');
-  console.log(world.createLabelledGrid(+size));
+  let length = +readline.question('enter world length : ');
+  let breadth = +readline.question('enter world breadth : ');
+  console.log(world.createLabelledGrid({length,breadth}));
   let aliveCellsInput = readline.question('Enter alive cells position : ');
   let aliveCells = aliveCellsInput.split(" ").map(x=>+x);
   console.log(world.updateWorld(aliveCells));

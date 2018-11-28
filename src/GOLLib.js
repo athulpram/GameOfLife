@@ -1,17 +1,19 @@
-let world = { generateGrid : function(size) {
-  let rows = new Array(size).fill(0);
-  let grid = rows.map((x) => new Array(size).fill(0));
+let world = { generateGrid : function({length, breadth}) {
+  let rows = new Array(breadth).fill(0);
+  let grid = rows.map((x) => new Array(length).fill(0));
   this.grid= grid.map((x)=>x.slice());
   return grid;
 }, 
   grid : [], 
 
   calculateGridSize: function() { 
-    return this.grid.length
+    let breadth=this.grid.length;
+    let length=this.grid[0].length;
+    return {length,breadth};
   }, 
 
-  createLabelledGrid : function(size) {
-    let grid = this.generateGrid(size);
+  createLabelledGrid : function(dimensions) {
+    let grid = this.generateGrid(dimensions);
     let counter = 1;
     return grid.map((rows)=>rows.map((col) => counter++));
   },
@@ -34,10 +36,11 @@ let world = { generateGrid : function(size) {
   },
 
   provideNeighbourState : function(row,column){
-    if(Math.max(row,column)>this.grid.length -1 || Math.min(row,column)<0){
-      return 0;
+    let grid = this.grid;
+    if(grid[row] != undefined && grid[row][column]!=undefined){
+      return this.grid[row][column];
     }
-    return this.grid[row][column];
+    return 0;
   },
 
   calculateAliveNeighbours : function(row,column){
@@ -70,11 +73,11 @@ let world = { generateGrid : function(size) {
 
   changeLifeZone : function() {
     let nextGeneration = [];
-    let worldSize = this.calculateGridSize();
+    let {length, breadth} = this.calculateGridSize();
     nextGeneration = this.grid.map((value)=>value.slice());
 
-    for(let row=0; row < worldSize; row++){
-      for(let column=0; column < worldSize; column++){
+    for(let row=0; row < breadth; row++){
+      for(let column=0; column < length; column++){
         nextGeneration[row][column] = this.calculateNextState(row, column); 
       }
     }
@@ -91,10 +94,10 @@ let world = { generateGrid : function(size) {
 
   updateWorld : function(aliveCells){
     let grid = this.grid;
-    let size = this.calculateGridSize();
+    let {length, breadth} = this.calculateGridSize();
     for(cell of aliveCells){
-      let row = Math.floor((cell-1)/size);
-      let col = (cell-1) % size;
+      let row = Math.floor((cell-1)/breadth);
+      let col = (cell-1) % length;
       grid[row][col] = 1;
     }
     this.grid = grid;

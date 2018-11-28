@@ -41,28 +41,38 @@ describe('run world', function() {
 
 describe("generateGrid", function() {
   it("should return a 2D array of length 3 when world size is equal to 3", function() {
-    deepEqual(world.generateGrid(3), [[0,0,0],[0,0,0],[0,0,0]]);
+    deepEqual(world.generateGrid({length : 3, breadth :3}), [[0,0,0],[0,0,0],[0,0,0]]);
   });
 
   it("should return a 2D array of length 5 when world size is equal to 5", function() {
-    deepEqual(world.generateGrid(5), [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]);
+    deepEqual(world.generateGrid({length : 5, breadth :5}), [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]);
   });
 
   it("should return an array of length 0 when world size is equal to 0", function() {
-    deepEqual(world.generateGrid(0), []);
+    deepEqual(world.generateGrid({length : 0, breadth:0}), []);
+  });
+
+  it("should return a 2D array as per length and breadth", function() {
+    deepEqual(world.generateGrid({length:2, breadth:3}), [[0,0], [0,0], [0,0]]);
+    deepEqual(world.generateGrid({length:3, breadth:2}), [[0,0,0], [0,0,0]]); 
   });
 });
 
 describe("createLabelledGrid", function() {
   it("should return a 2D array with the cell positions as values", function() {
-    deepEqual(world.createLabelledGrid(3), [[1,2,3],[4,5,6],[7,8,9]]);
-    deepEqual(world.createLabelledGrid(4), [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]]);
+    deepEqual(world.createLabelledGrid({length: 3, breadth : 3}), [[1,2,3],[4,5,6],[7,8,9]]);
+    deepEqual(world.createLabelledGrid({length : 4, breadth :4}), [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]]);
+  });
+
+  it("should return a 2D array with positions of cells when length and breadth are different", function() {
+    deepEqual(world.createLabelledGrid({length:2, breadth:3}), [[1,2], [3,4], [5,6]]);
+    deepEqual(world.createLabelledGrid({length:3, breadth:2}), [[1,2,3], [4,5,6]]); 
   });
 });
 
 describe("update world",function(){
   it("should return a 2D array with values 1 at provided cell numbers",function(){
-    world.generateGrid(3);
+    world.generateGrid({length : 3, breadth: 3});
     deepEqual(world.updateWorld([1]),[[1,0,0],[0,0,0],[0,0,0]]);
   });
 });
