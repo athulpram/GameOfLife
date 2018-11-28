@@ -15,7 +15,7 @@ describe('Neighbour states',function(){
 });
 
 describe('calculate Alive Neighbours',function() {
-  it('should return a single number when latitude and longitude of the cell is provided', function() {
+  it('should return a single number when row and column of the cell is provided', function() {
     deepEqual(world.calculateAliveNeighbours(0,0), 2);
     deepEqual(world.calculateAliveNeighbours(0,1), 1);
     deepEqual(world.calculateAliveNeighbours(0,2), 2);

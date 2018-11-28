@@ -18,21 +18,21 @@ let world = { generateGrid : function(size) {
     return this.grid.length
   }, 
 
-  fetchNeighboursState : function(latitude, longitude){
+  fetchNeighboursState : function(row, column){
     let grid = this.grid;
     return [
-      checkNeighbourState(latitude -1,longitude -1,grid),
-      checkNeighbourState(latitude -1,longitude, grid),
-      checkNeighbourState(latitude -1,longitude +1, grid),
-      checkNeighbourState(latitude ,longitude -1, grid),
-      checkNeighbourState(latitude ,longitude +1, grid),
-      checkNeighbourState(latitude +1,longitude -1, grid),
-      checkNeighbourState(latitude +1,longitude, grid),
-      checkNeighbourState(latitude +1,longitude +1 ,grid)];
+      checkNeighbourState(row -1,column -1,grid),
+      checkNeighbourState(row -1,column, grid),
+      checkNeighbourState(row -1,column +1, grid),
+      checkNeighbourState(row ,column -1, grid),
+      checkNeighbourState(row ,column +1, grid),
+      checkNeighbourState(row +1,column -1, grid),
+      checkNeighbourState(row +1,column, grid),
+      checkNeighbourState(row +1,column +1 ,grid)];
   },
 
-  calculateAliveNeighbours : function(latitude,longitude){
-    let neighbourStates = this.fetchNeighboursState(latitude,longitude);
+  calculateAliveNeighbours : function(row,column){
+    let neighbourStates = this.fetchNeighboursState(row,column);
     return neighbourStates.reduce((state1,state2)=>state1+state2);
   },
 
@@ -42,20 +42,20 @@ let world = { generateGrid : function(size) {
     1: function() { 
       return 0;
     },
-    2 : function(latitude, longitude){
-      return world.grid[latitude][longitude];
+    2 : function(row, column){
+      return world.grid[row][column];
     },
     3 : function() { 
       return 1;
     }
   },
 
-  calculateNextState : function(latitude, longitude) { 
-    let aliveNeighbours = this.calculateAliveNeighbours(latitude, longitude);
+  calculateNextState : function(row, column) { 
+    let aliveNeighbours = this.calculateAliveNeighbours(row, column);
     if(aliveNeighbours > 3) {
       return 0;
     }
-    let nextState = this.lifeZones[aliveNeighbours](latitude,longitude);
+    let nextState = this.lifeZones[aliveNeighbours](row,column);
     return nextState;
   },
 
@@ -64,9 +64,9 @@ let world = { generateGrid : function(size) {
     let worldSize = this.calculateWorldSize();
     nextGeneration = this.grid.map((value)=>value.slice());
 
-    for(let latitude=0; latitude < worldSize; latitude++){
-      for(let longitude=0; longitude < worldSize; longitude++){
-        nextGeneration[latitude][longitude] = this.calculateNextState(latitude, longitude); 
+    for(let row=0; row < worldSize; row++){
+      for(let column=0; column < worldSize; column++){
+        nextGeneration[row][column] = this.calculateNextState(row, column); 
       }
     }
     this.grid=nextGeneration;
