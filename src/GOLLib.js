@@ -37,10 +37,15 @@ let world = { generateGrid : function({length, breadth}) {
 
   provideNeighbourState : function(row,column){
     let grid = this.grid;
-    if(grid[row] != undefined && grid[row][column]!=undefined){
+    if(this.isCellValid({row,column})){
       return this.grid[row][column];
     }
     return 0;
+  },
+
+  isCellValid : function({row,column}){
+    let grid = this.grid;
+    return ((grid[row] != undefined && grid[row][column]!=undefined));
   },
 
   calculateAliveNeighbours : function(row,column){
@@ -95,7 +100,7 @@ let world = { generateGrid : function({length, breadth}) {
   updateWorld : function(aliveCells){
     let grid = this.grid;
     let {length, breadth} = this.calculateGridSize();
-    aliveCells.map((cell) => grid[cell[0]][cell[1]] = 1);
+    aliveCells.map((cell) =>{ if(this.isCellValid({row : cell[0],column : cell[1]})){grid[cell[0]][cell[1]] = 1}});
     this.grid = grid;
     return grid;
   }
