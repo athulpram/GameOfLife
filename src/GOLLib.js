@@ -1,6 +1,11 @@
 const {checkNeighbourState} = require("./utilLib.js");
 
-let world = {grid : [[0,1,0,1,0],[0,1,0,0,1],[0,1,0,1,1],[1,0,1,1,1],[1,0,0,1,0]],
+let world = { generateGrid : function(size) {
+  let rows = new Array(size).fill(0);
+  let grid = rows.map((x) => new Array(size).fill(0));
+  return grid;
+  },
+  grid : [[0,1,0,1,0],[0,1,0,0,1],[0,1,0,1,1],[1,0,1,1,1],[1,0,0,1,0]],
   calculateWorldSize: function() { 
     return this.grid.length
   }, 

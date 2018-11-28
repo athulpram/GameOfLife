@@ -38,3 +38,9 @@ describe('run world', function() {
     deepEqual(world.runWorld(2),[[0,1,0],[0,1,0],[0,1,0]]);
   });
 });
+
+describe("generateGrid", function() {
+  it("should return a 2D array of length equal to the size of world", function() {
+    deepEqual(world.generateGrid(3), [[0,0,0],[0,0,0],[0,0,0]]);
+  });
+});
