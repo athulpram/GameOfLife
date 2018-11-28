@@ -6,7 +6,7 @@ const main = function() {
   console.log(world.createLabelledGrid(+size));
   let aliveCellsInput = readline.question('Enter alive cells position : ');
   let aliveCells = aliveCellsInput.split(" ").map(x=>+x);
-  console.log(world.updateWorld(aliveCells, +size));
+  console.log(world.updateWorld(aliveCells));
   let iteration = readline.question('enter desired iteration value : ');
   console.log(world.runWorld(iteration));
 }

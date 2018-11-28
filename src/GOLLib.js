@@ -1,6 +1,7 @@
 let world = { generateGrid : function(size) {
   let rows = new Array(size).fill(0);
   let grid = rows.map((x) => new Array(size).fill(0));
+  this.grid= grid.map((x)=>x.slice());
   return grid;
 }, 
   grid : [], 
@@ -16,7 +17,6 @@ let world = { generateGrid : function(size) {
   },
 
   fetchNeighbours : function(row, column){
-    let grid = this.grid;
     let points = [-1, 0, 1];
     let neighbour=[];
 
@@ -89,9 +89,9 @@ let world = { generateGrid : function(size) {
     return this.grid;
   },
 
-  updateWorld : function(aliveCells,size){
-    let grid = this.generateGrid(size);
-    let gridSize = this.calculateGridSize();
+  updateWorld : function(aliveCells){
+    let grid = this.grid;
+    let size = this.calculateGridSize();
     for(cell of aliveCells){
       let row = Math.floor((cell-1)/size);
       let col = (cell-1) % size;

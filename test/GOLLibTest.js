@@ -53,7 +53,7 @@ describe("generateGrid", function() {
   });
 });
 
-describe("placeCellNumbers", function() {
+describe("createLabelledGrid", function() {
   it("should return a 2D array with the cell positions as values", function() {
     deepEqual(world.createLabelledGrid(3), [[1,2,3],[4,5,6],[7,8,9]]);
     deepEqual(world.createLabelledGrid(4), [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]]);
@@ -62,7 +62,8 @@ describe("placeCellNumbers", function() {
 
 describe("update world",function(){
   it("should return a 2D array with values 1 at provided cell numbers",function(){
-    deepEqual(world.updateWorld([1],3),[[1,0,0],[0,0,0],[0,0,0]]);
+    world.generateGrid(3);
+    deepEqual(world.updateWorld([1]),[[1,0,0],[0,0,0],[0,0,0]]);
   });
 });
 
