@@ -12,7 +12,8 @@ let world = { generateGrid : function(size) {
     return grid.map((rows)=>rows.map((col) => counter++));
   },
 
-  grid : [[0,1,0,1,0],[0,1,0,0,1],[0,1,0,1,1],[1,0,1,1,1],[1,0,0,1,0]],
+  grid : [], 
+
   calculateWorldSize: function() { 
     return this.grid.length
   }, 
@@ -77,6 +78,18 @@ let world = { generateGrid : function(size) {
       iteration--;
     }
     return this.grid;
+  },
+
+  updateWorld : function(aliveCells,size){
+    let grid = this.generateGrid(size);
+    let gridSize = this.calculateWorldSize();
+    for(cell of aliveCells){
+      let row = (cell-1) % size;
+      let col = Math.floor((cell-1)/size);
+      grid[row][col] = 1;
+    }
+    this.grid = grid;
+    return grid;
   }
 }
 

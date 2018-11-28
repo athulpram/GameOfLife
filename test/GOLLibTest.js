@@ -59,3 +59,9 @@ describe("placeCellNumbers", function() {
     deepEqual(world.placeCellNumbers(4), [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]]);
   });
 });
+
+describe("update world",function(){
+  it("should return a 2D array with values 1 at provided cell numbers",function(){
+    deepEqual(world.updateWorld([1],3),[[1,0,0],[0,0,0],[0,0,0]]);
+  });
+});
